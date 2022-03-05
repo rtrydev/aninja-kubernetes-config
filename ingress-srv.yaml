@@ -10,17 +10,17 @@ spec:
     - host: rtrydev.com
       http:
         paths:
-          - path: /api/animes
+          - path: /api/anime
             pathType: Prefix
             backend:
               service:
                 name: browse-clusterip-srv
                 port:
-                  number: 80
-          - path: /api/c/animes
+                  number: 8080
+          - path: /api/c/anime
             pathType: Prefix
             backend:
               service:
                 name: tags-clusterip-srv
                 port:
-                  number: 80
+                  number: 8080

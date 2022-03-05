@@ -27,8 +27,8 @@ spec:
   ports:
     - name: aninja-browse-service
       protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
     - name: platformgrpc
       protocol: TCP
       port: 666
