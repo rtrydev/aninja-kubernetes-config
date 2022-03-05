@@ -15,6 +15,10 @@ minikube addons enable ingress
 ```
 
 ## Deploying
+```
+kubectl create secret generic tags-postgresql --from-literal=POSTGRES_PASSWORD="mysecretpassword"
+kubectl create secret generic postgresql --from-literal=POSTGRES_PASSWORD="mysecretpassword"
+```
 
 ```
 kubectl apply -f <file>.yaml
