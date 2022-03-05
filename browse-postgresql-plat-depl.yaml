@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgresql-depl
+  name: browse-postgresql-depl
 spec:
   replicas: 1
   selector:
@@ -18,45 +18,44 @@ spec:
           ports:
             - containerPort: 5432
           env:
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgresql
-                key: POSTGRES_PASSWORD
-          - name: POSTGRES_DB
-            value: platforms
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgresql
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              value: animes
           volumeMounts:
-          - mountPath: /var/lib/posrgresql/data
-            name: postgresqldb
+            - mountPath: /var/lib/posrgresql/data
+              name: browse-postgresqldb
       volumes:
-      - name: postgresqldb
-        persistentVolumeClaim:
-          claimName: postgresql-claim
+        - name: browse-postgresqldb
+          persistentVolumeClaim:
+            claimName: postgresql-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-clusterip-srv
+  name: browse-postgresql-clusterip-srv
 spec:
   type: ClusterIP
   selector:
     app: postgresql
   ports:
-  - name: postgresql
-    protocol: TCP
-    port: 5432
-    targetPort: 5432
+    - name: postgresql
+      protocol: TCP
+      port: 5432
+      targetPort: 5432
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-loadbalancer
+  name: browse-postgresql-loadbalancer
 spec:
   type: LoadBalancer
   selector:
     app: postgresql
   ports:
-  - protocol: TCP
-    port: 5432
-    targetPort: 5432
-
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

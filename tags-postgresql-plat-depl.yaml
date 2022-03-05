@@ -24,19 +24,19 @@ spec:
                   name: postgresql
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
-              value: platforms
+              value: tags
           volumeMounts:
             - mountPath: /var/lib/posrgresql/data
-              name: postgresqldb
+              name: tags-postgresqldb
       volumes:
-        - name: postgresqldb
+        - name: tags-postgresqldb
           persistentVolumeClaim:
             claimName: postgresql-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-clusterip-srv
+  name: tags-postgresql-clusterip-srv
 spec:
   type: ClusterIP
   selector:
@@ -50,7 +50,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-loadbalancer
+  name: tags-postgresql-loadbalancer
 spec:
   type: LoadBalancer
   selector:
