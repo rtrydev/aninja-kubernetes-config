@@ -7,20 +7,20 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: rtrydev.com
+    - host: aninja.com
       http:
         paths:
-          - path: /api/anime
+          - path: /api
             pathType: Prefix
             backend:
               service:
                 name: browse-clusterip-srv
                 port:
-                  number: 8080
-          - path: /api/c/anime
+                  number: 80
+          - path: /api/t
             pathType: Prefix
             backend:
               service:
                 name: tags-clusterip-srv
                 port:
-                  number: 8080
+                  number: 80
