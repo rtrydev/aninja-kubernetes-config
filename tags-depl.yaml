@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: commands-depl
+  name: tags-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: commandsservice
+      app: aninja-tags-service
   template:
     metadata:
       labels:
-        app: commandsservice
+        app: aninja-tags-service
     spec:
       containers:
-        - name: commandsservice
-          image: rtrydev/commandsservice:latest
+        - name: aninja-tags-service
+          image: rtrydev/aninja-tags-service:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: commands-clusterip-srv
+  name: tags-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: commandsservice
+    app: aninja-tags-service
   ports:
-  - name: commandsservice
-    protocol: TCP
-    port: 80
-    targetPort: 80
+    - name: aninja-tags-service
+      protocol: TCP
+      port: 80
+      targetPort: 80

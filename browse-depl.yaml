@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: platforms-depl
+  name: browse-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: platformservice
+      app: aninja-browse-service
   template:
     metadata:
       labels:
-        app: platformservice
+        app: aninja-browse-service
     spec:
       containers:
-        - name: platformservice
-          image: rtrydev/platformservice:latest
+        - name: aninja-browse-service
+          image: rtrydev/aninja-browse-service:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: platforms-clusterip-srv
+  name: browse-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: platformservice
+    app: aninja-browse-service
   ports:
-  - name: platformservice
-    protocol: TCP
-    port: 80
-    targetPort: 80
-  - name: platformgrpc
-    protocol: TCP
-    port: 666
-    targetPort: 666
+    - name: aninja-browse-service
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: platformgrpc
+      protocol: TCP
+      port: 666
+      targetPort: 666
