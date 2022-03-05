@@ -18,5 +18,4 @@ minikube addons enable ingress
 
 ```
 kubectl apply -f <file>.yaml
-'''
 ```
