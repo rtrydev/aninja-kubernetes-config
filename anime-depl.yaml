@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: browse-depl
+  name: anime-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: aninja-browse-service
+      app: aninja-anime-service
   template:
     metadata:
       labels:
-        app: aninja-browse-service
+        app: aninja-anime-service
     spec:
       containers:
-        - name: aninja-browse-service
-          image: rtrydev/aninja-browse-service:latest
+        - name: aninja-anime-service
+          image: rtrydev/aninja-anime-service:latest
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: browse-clusterip-srv
+  name: anime-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: aninja-browse-service
+    app: aninja-anime-service
   ports:
-    - name: aninja-browse-service
+    - name: aninja-anime-service
       protocol: TCP
       port: 80
       targetPort: 80

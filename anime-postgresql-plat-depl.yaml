@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: browse-postgresql-depl
+  name: anime-postgresql-depl
 spec:
   replicas: 1
   selector:
@@ -21,22 +21,22 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgresql
+                  name: anime-postgresql
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               value: animes
           volumeMounts:
             - mountPath: /var/lib/posrgresql/data
-              name: browse-postgresqldb
+              name: anime-postgresqldb
       volumes:
-        - name: browse-postgresqldb
+        - name: anime-postgresqldb
           persistentVolumeClaim:
-            claimName: postgresql-claim
+            claimName: anime-postgresql-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: browse-postgresql-clusterip-srv
+  name: anime-postgresql-clusterip-srv
 spec:
   type: ClusterIP
   selector:
@@ -50,7 +50,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: browse-postgresql-loadbalancer
+  name: anime-postgresql-loadbalancer
 spec:
   type: LoadBalancer
   selector:

@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: tags-postgresql-claim
 spec:
+  storageClassName: custom
   accessModes:
     - ReadWriteMany
   resources:

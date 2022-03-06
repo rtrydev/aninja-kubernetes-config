@@ -14,7 +14,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: browse-clusterip-srv
+                name: anime-clusterip-srv
                 port:
                   number: 80
           - path: /api/t
