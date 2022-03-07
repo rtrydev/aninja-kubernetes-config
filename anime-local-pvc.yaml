@@ -1,11 +1,28 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: anime-postgresql-claim
+  name: anime-postgresql-pv
+  namespace: default
 spec:
-  storageClassName: custom
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data/anime
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: anime-postgresql-pvc
+  namespace: default
+spec:
+  storageClassName: standard
+  volumeName: anime-postgresql-pv
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 200Mi
+      storage: 1Gi

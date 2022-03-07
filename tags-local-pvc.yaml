@@ -1,11 +1,28 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-  name: tags-postgresql-claim
+  name: tags-postgresql-pv
+  namespace: default
 spec:
-  storageClassName: custom
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data/tags
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: tags-postgresql-pvc
+  namespace: default
+spec:
+  storageClassName: standard
+  volumeName: tags-postgresql-pv
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 200Mi
+      storage: 1Gi

@@ -6,14 +6,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgresql
+      app: anime-postgresql
   template:
     metadata:
       labels:
-        app: postgresql
+        app: anime-postgresql
     spec:
       containers:
-        - name: postgresql
+        - name: anime-postgresql
           image: postgres
           ports:
             - containerPort: 5432
@@ -25,13 +25,15 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               value: animes
+            - name: PGDATA
+              value: /data/k8s
           volumeMounts:
-            - mountPath: /var/lib/posrgresql/data
-              name: anime-postgresqldb
+            - name: anime-postgresql-pv
+              mountPath: /data
       volumes:
-        - name: anime-postgresqldb
+        - name: anime-postgresql-pv
           persistentVolumeClaim:
-            claimName: anime-postgresql-claim
+            claimName: anime-postgresql-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -40,9 +42,9 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: postgresql
+    app: anime-postgresql
   ports:
-    - name: postgresql
+    - name: anime-postgresql
       protocol: TCP
       port: 5432
       targetPort: 5432
@@ -54,7 +56,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: postgresql
+    app: anime-postgresql
   ports:
     - protocol: TCP
       port: 5432

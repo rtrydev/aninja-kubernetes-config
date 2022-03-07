@@ -25,13 +25,15 @@ spec:
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               value: tags
+            - name: PGDATA
+              value: /data/k8s
           volumeMounts:
-            - mountPath: /var/lib/posrgresql/data
-              name: tags-postgresqldb
+            - name: tags-postgresql-pv
+              mountPath: /data
       volumes:
-        - name: tags-postgresqldb
+        - name: tags-postgresql-pv
           persistentVolumeClaim:
-            claimName: tags-postgresql-claim
+            claimName: tags-postgresql-pvc
 ---
 apiVersion: v1
 kind: Service
