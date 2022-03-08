@@ -22,7 +22,6 @@ kubectl create secret generic anime-postgresql --from-literal=POSTGRES_PASSWORD=
 ```
 
 ```
-kubectl apply -f custom-sc.yaml
 kubectl apply -f tags-local-pvc.yaml
 kubectl apply -f anime-local-pvc.yaml
 kubectl apply -f rabbitmq-depl.yaml
@@ -31,5 +30,6 @@ kubectl apply -f anime-postgresql-plat-depl.yaml
 kubectl apply -f anime-np-srv.yaml
 kubectl apply -f anime-depl.yaml
 kubectl apply -f tags-depl.yaml
+kubectl apply -f ocelot-gateway-depl.yaml
 kubectl apply -f ingress-srv.yaml
 ```
