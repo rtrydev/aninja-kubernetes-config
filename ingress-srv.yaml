@@ -14,13 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: anime-clusterip-srv
-                port:
-                  number: 80
-          - path: /api/t
-            pathType: Prefix
-            backend:
-              service:
-                name: tags-clusterip-srv
+                name: ocelot-clusterip-srv
                 port:
                   number: 80

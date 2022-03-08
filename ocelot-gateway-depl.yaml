@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocelot-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ocelot-gateway
+  template:
+    metadata:
+      labels:
+        app: ocelot-gateway
+    spec:
+      containers:
+        - name: ocelot-gateway-service
+          image: rtrydev/ocelot-api-gateway:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocelot-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: ocelot-gateway
+  ports:
+    - name: ocelot-gateway
+      protocol: TCP
+      port: 80
+      targetPort: 80
