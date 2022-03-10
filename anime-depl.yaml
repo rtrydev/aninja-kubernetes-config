@@ -15,6 +15,7 @@ spec:
       containers:
         - name: aninja-anime-service
           image: rtrydev/aninja-anime-service:latest
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service

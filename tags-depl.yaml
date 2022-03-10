@@ -15,6 +15,7 @@ spec:
       containers:
         - name: aninja-tags-service
           image: rtrydev/aninja-tags-service:latest
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service

@@ -15,6 +15,7 @@ spec:
       containers:
         - name: ocelot-gateway-service
           image: rtrydev/ocelot-api-gateway:latest
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
