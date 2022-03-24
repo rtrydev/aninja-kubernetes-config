@@ -28,7 +28,7 @@ kubectl apply -f auth-local-pvc.yaml
 kubectl apply -f rabbitmq-depl.yaml
 kubectl apply -f tags-postgresql-plat-depl.yaml
 kubectl apply -f anime-postgresql-plat-depl.yaml
-kubeclt apply -f auth-mongo-depl.yaml
+kubectl apply -f auth-mongo-depl.yaml
 kubectl apply -f anime-np-srv.yaml
 kubectl apply -f anime-depl.yaml
 kubectl apply -f tags-depl.yaml
