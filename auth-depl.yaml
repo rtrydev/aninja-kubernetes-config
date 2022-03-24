@@ -1,35 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ocelot-gateway
+  name: auth-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ocelot-gateway
+      app: aninja-auth-service
   template:
     metadata:
       labels:
-        app: ocelot-gateway
+        app: aninja-auth-service
     spec:
       containers:
-        - name: ocelot-gateway-service
+        - name: aninja-auth-service
           env:
             - name: JWT_SECRET
               value: supersecretforjwt
-          image: rtrydev/ocelot-api-gateway:latest
+            - name: JWT_EXPIREMINUTES
+              value: "180"
+          image: rtrydev/aninja-auth-service:latest
           imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ocelot-clusterip-srv
+  name: auth-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: ocelot-gateway
+    app: aninja-auth-service
   ports:
-    - name: ocelot-gateway
+    - name: aninja-auth-service
       protocol: TCP
       port: 80
       targetPort: 80
