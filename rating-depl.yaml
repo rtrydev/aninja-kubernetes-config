@@ -19,7 +19,7 @@ spec:
               value: supersecretforjwt
             - name: JWT_EXPIREMINUTES
               value: "180"
-          image: rtrydev/aninja-rating-service:arm64
+          image: rtrydev/aninja-rating-service:latest
           imagePullPolicy: Always
 ---
 apiVersion: v1

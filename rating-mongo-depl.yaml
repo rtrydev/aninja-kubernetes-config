@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rating-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rating-mongo
+  template:
+    metadata:
+      labels:
+        app: rating-mongo
+    spec:
+      containers:
+        - name: rating-mongo
+          image: mongo
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: rating-mongo-pv
+              mountPath: /data/db
+      volumes:
+        - name: rating-mongo-pv
+          persistentVolumeClaim:
+            claimName: rating-mongo-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rating-mongo-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: rating-mongo
+  ports:
+    - name: rating-mongo
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rating-mongo-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: rating-mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
