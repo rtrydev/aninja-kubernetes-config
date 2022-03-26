@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rating-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aninja-rating-service
+  template:
+    metadata:
+      labels:
+        app: aninja-rating-service
+    spec:
+      containers:
+        - name: aninja-rating-service
+          env:
+            - name: JWT_SECRET
+              value: supersecretforjwt
+            - name: JWT_EXPIREMINUTES
+              value: "180"
+          image: rtrydev/aninja-rating-service:arm64
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rating-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: aninja-rating-service
+  ports:
+    - name: aninja-rating-service
+      protocol: TCP
+      port: 80
+      targetPort: 80
