@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: character-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aninja-character-service
+  template:
+    metadata:
+      labels:
+        app: aninja-character-service
+    spec:
+      containers:
+        - name: aninja-character-service
+          image: rtrydev/aninja-character-service:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: character-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: aninja-character-service
+  ports:
+    - name: aninja-character-service
+      protocol: TCP
+      port: 80
+      targetPort: 80

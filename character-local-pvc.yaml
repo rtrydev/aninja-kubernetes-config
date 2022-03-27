@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: character-postgresql-pv
+  namespace: default
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /data/character
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: character-postgresql-pvc
+  namespace: default
+spec:
+  storageClassName: standard
+  volumeName: character-postgresql-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
