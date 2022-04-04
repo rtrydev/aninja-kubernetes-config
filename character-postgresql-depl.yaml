@@ -24,7 +24,7 @@ spec:
                   name: character-postgresql
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
-              value: characters
+              value: character
             - name: PGDATA
               value: /data/k8s
           volumeMounts:
